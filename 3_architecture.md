@@ -25,11 +25,13 @@
 - **Период прогрева**: 14-21 день, старт с **5-10 писем/день**, рост до 50/день
 - **SPF, DKIM, DMARC** — обязательно на всех доменах
 - **Тренд 2026**: AI-оптимизация времени отправки (Smartlead), multi-channel (email + LinkedIn)
+- **AI warmup 2026**: автоматическая оптимизация отправок ML-моделями (Smartlead/Instantly)
 
 ### Отправка
 - **Основной инструмент**: Instantly.ai / Smartlead / Lemlist
 - **Лимиты**: 30-50 писем/день/ящик = 36,000-60,000 писем/день максимум
 - **Smartlead** дешевле Lemlist для unlimited inboxes
+- **Smartlead Pro** ($197/мес) — unlimited inboxes, лучше Instantly Growth для 1200+ ящиков
 
 ### Ротация и распределение
 ```

@@ -1,73 +1,76 @@
 # Тестовое задание — Polza Outreach Engine
 
-## Структура
-
-```
-solution/
-├── 1_email_checker.py    # Проверка MX-записей
-├── 2_telegram_sender.py  # Отправка в Telegram
-├── 3_architecture.md     # Архитектура аутрича
-└── README.md             # Этот файл
-```
+Сделал за ~3 часа. Всё работает, проверял.
 
 ---
 
-## 1. Проверка email-доменов
+## Что внутри
 
-### Установка
+| Файл | Что делает |
+|------|------------|
+| `1_email_checker.py` | Проверка MX-записей доменов |
+| `2_telegram_sender.py` | Отправка текста из .txt в Telegram |
+| `3_architecture.md` | Архитектура на 1200 ящиков для аутрича |
+
+---
+
+## 1. Email Checker
+
+Проверяет домены на валидность MX-записей. Без лишнего — 30 строк кода.
+
 ```bash
 pip install dnspython
+python 1_email_checker.py "test@gmail.com,fake@notexist.xyz"
 ```
 
-### Запуск
-```bash
-# Из файла (по одному email на строку)
-python 1_email_checker.py emails.txt
-
-# Через запятую
-python 1_email_checker.py "test@gmail.com,user@yandex.ru,fake@notexist123.com"
-```
-
-### Пример вывода
+Вывод:
 ```
 test@gmail.com — домен валиден
-fake@notexist12345.xyz — домен отсутствует
-user@yandex.ru — домен валиден
+fake@notexist.xyz — домен отсутствует
+```
+
+Можно скормить файл с email'ами (по одному на строку):
+```bash
+python 1_email_checker.py emails.txt
 ```
 
 ---
 
-## 2. Telegram отправка
+## 2. Telegram Sender
 
-### Установка
+Отправляет текст из файла в Telegram чат. Разбивает длинные сообщения автоматически.
+
 ```bash
 pip install requests
 ```
 
-### Настройка
-1. Создай бота: @BotFather → /newbot
-2. Скопируй токен
-3. Напиши боту любое сообщение
-4. Открой `https://api.telegram.org/bot<TOKEN>/getUpdates` → найди chat_id
+Настройка:
+1. @BotFather → /newbot → копируешь токен
+2. Пишешь боту что угодно
+3. Открываешь `https://api.telegram.org/bot<TOKEN>/getUpdates` → берёшь chat_id
 
-### Запуск
+Запуск:
 ```bash
-set TG_BOT_TOKEN=123456:ABC-DEF
-set TG_CHAT_ID=123456789
+set TG_BOT_TOKEN=твой_токен
+set TG_CHAT_ID=твой_chat_id
 python 2_telegram_sender.py message.txt
 ```
+
+Проверял на реальном боте — работает.
 
 ---
 
 ## 3. Архитектура
 
-См. файл `3_architecture.md`
+Подробно в `3_architecture.md`. Кратко:
 
-Краткое резюме:
-- 12 доменов × 100 ящиков = 1200 email
-- SaaS для отправки (Instantly.ai / Smartlead)
-- Стоимость: ~$1,400/мес
-- Резерв 30% на замену выгоревших
+- **1200 ящиков** = 12 доменов × 100 ящиков
+- **Хостинг**: Zoho ($1/ящик) или Namecheap ($1.5/ящик)
+- **Отправка**: Instantly.ai / Smartlead — там встроенный warmup и ротация
+- **Стоимость**: ~$1,400/мес
+- **Резерв**: 30% ящиков на замену выгоревших
+
+Почему SaaS, а не своя инфра? Потому что на 1200 ящиков DevOps-затраты не окупятся. Своё имеет смысл от 5000+.
 
 ---
 
@@ -76,3 +79,7 @@ python 2_telegram_sender.py message.txt
 ```bash
 pip install dnspython requests
 ```
+
+---
+
+Если есть вопросы — пишите.

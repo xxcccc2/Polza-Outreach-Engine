@@ -1,4 +1,4 @@
-# Тестовое задание — Polza Outreach Engine
+# Polza Outreach Engine
 
 ---
 
